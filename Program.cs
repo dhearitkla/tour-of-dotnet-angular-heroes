@@ -13,18 +13,18 @@ db.SaveChanges();
 
 // Read
 Console.WriteLine("Querying for a Team");
-var Team = db.Teams
+var team = db.Teams
     .OrderBy(b => b.TeamId)
     .First();
 
 // Update
 Console.WriteLine("Updating the Team and adding a Hero");
-Team.Name = "Doom Kitties";
-Team.Heroes.Add(
+team.Name = "Doom Kitties";
+team.Heroes.Add(
     new Hero { Name = "World Ender" });
 db.SaveChanges();
 
 // Delete
 Console.WriteLine("Delete the Team");
-db.Remove(Team);
+db.Remove(team);
 db.SaveChanges();

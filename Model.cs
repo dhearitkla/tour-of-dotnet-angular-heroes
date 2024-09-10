@@ -4,9 +4,9 @@ using System.Collections.Generic;
 
 public class HeroContext : DbContext
 {
-    public DbSet<Team> Teams { get; set; }
-    public DbSet<Hero> Heroes { get; set; }
-    public DbSet<SuperPower> SuperPowers { get; set; }
+    public DbSet<Team>? Teams { get; set; }
+    public DbSet<Hero>? Heroes { get; set; }
+    public DbSet<SuperPower>? SuperPowers { get; set; } 
 
     public string DbPath { get; }
 
@@ -26,9 +26,9 @@ public class HeroContext : DbContext
 public class Team
 {
     public int TeamId { get; set; }
-    public string Name { get; set; }
-    public string Purpose { get; set; }
-    public string Power { get; }
+    public string? Name { get; set; }
+    public string? Purpose { get; set; }
+    public int? Power { get; set; }
 
     public List<Hero> Heroes { get; } = new();
 }
@@ -36,19 +36,19 @@ public class Team
 public class Hero
 {
     public int HeroId { get; set; }
-    public string Name { get; set; }
+    public string? Name { get; set; }
     
     public List<SuperPower> SuperPowers { get; } = new();
-    public int Power { get; }
+    public int? Power { get; set; }
 
     public int TeamId { get; set; }
-    public Team Team { get; set; }
+    public Team? Team { get; set; }
 }
 
 public class SuperPower
 {
     public int SuperPowerId { get; set; }
-    public string Name { get; set; }
+    public string? Name { get; set; }
     public SuperPowerGrade Grade { get; set; }
     public SuperPowerClassification Classification { get; set; }
 }
