@@ -1,28 +1,30 @@
-var builder = WebApplication.CreateBuilder(args);
+using System;
+using System.Linq;
 
-// Add services to the container.
+using var db = new HeroContext();
 
-builder.Services.AddControllersWithViews();
+// Note: This sample requires the database to be created before running.
+Console.WriteLine($"Database path: {db.DbPath}.");
 
-var app = builder.Build();
+// Create
+Console.WriteLine("Inserting a new Team");
+db.Add(new Team { Name = "Adjudicators", Purpose = "To Judge" });
+db.SaveChanges();
 
-// Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
-{
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-    app.UseHsts();
-}
+// Read
+Console.WriteLine("Querying for a Team");
+var Team = db.Teams
+    .OrderBy(b => b.TeamId)
+    .First();
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
-app.UseRouting();
+// Update
+Console.WriteLine("Updating the Team and adding a Hero");
+Team.Name = "Doom Kitties";
+Team.Heroes.Add(
+    new Hero { Name = "World Ender" });
+db.SaveChanges();
 
-
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
-
-app.MapFallbackToFile("index.html");
-;
-
-app.Run();
+// Delete
+Console.WriteLine("Delete the Team");
+db.Remove(Team);
+db.SaveChanges();
