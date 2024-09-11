@@ -1,5 +1,4 @@
-using System;
-using System.Linq;
+using tour_of_dotnet_angular_heros.Entities.Models;
 
 using var db = new HeroContext();
 
@@ -8,7 +7,7 @@ Console.WriteLine($"Database path: {db.DbPath}.");
 
 // Create
 Console.WriteLine("Inserting a new Team");
-db.Add(new Team { Name = "Adjudicators", Purpose = "To Judge" });
+db.Add(new Team("Adjudicators", "To Judge" ));
 db.SaveChanges();
 
 // Read
@@ -21,7 +20,7 @@ var team = db.Teams
 Console.WriteLine("Updating the Team and adding a Hero");
 team.Name = "Doom Kitties";
 team.Heroes.Add(
-    new Hero { Name = "World Ender" });
+    new Hero("World Ender"));
 db.SaveChanges();
 
 // Delete
