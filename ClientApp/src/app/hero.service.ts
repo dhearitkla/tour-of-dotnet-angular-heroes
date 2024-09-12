@@ -14,7 +14,8 @@ export class HeroService {
    * URL to web api
    * @private
    */
-  private heroesUrl = 'api/heroes';
+  private heroesUrl = 'hero';
+  // private heroesUrl = 'api/hero';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
