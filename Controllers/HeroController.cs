@@ -23,7 +23,7 @@ public class HeroController : ControllerBase
     };
 
     private readonly ILogger<HeroController> _logger;
-    private IHeroRepository _heroRepository;
+    private readonly IHeroRepository _heroRepository;
 
     public HeroController(ILogger<HeroController> logger, IHeroRepository heroRepository)
     {
@@ -33,7 +33,6 @@ public class HeroController : ControllerBase
     }
 
     [HttpGet]
-    [Produces("application/json")]
     public IEnumerable<Hero> Get()
     {
         _logger.LogDebug("Getting all heroes");
@@ -47,27 +46,27 @@ public class HeroController : ControllerBase
         return hero == null ? NotFound() : hero;
     }
     
+    [HttpGet("search")]
+    public IEnumerable<Hero> Search([FromQuery]string term)
+    {
+        return this._heroRepository.SearchHeroes(term);
+    }
+    
     [HttpPut]
     public void Update(Hero hero)
     {
-        //Update Hero
+        this._heroRepository.UpdateHero(hero);
     }
     
     [HttpPost]
     public void Add(Hero hero)
     {
-        //Add Hero
+        this._heroRepository.InsertHero(hero);
     }
     
     [HttpDelete]
     public void Delete(int id)
     {
-        //Delete Hero
-    }
-    
-    [HttpGet("search")]
-    public void Search([FromQuery]string term)
-    {
-        //Search Hero
+        this._heroRepository.DeleteHero(id);
     }
 }

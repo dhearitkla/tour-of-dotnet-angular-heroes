@@ -17,6 +17,15 @@ public class HeroRepository : IHeroRepository
     {
         return _context.Heroes.ToList();
     }
+    
+    public IEnumerable<Hero> SearchHeroes(string searchTerm)
+    {
+        var heroes = (from hero in _context.Heroes
+            where searchTerm.Any(s => hero.Name.Contains(s))
+            select hero).ToList();
+
+        return heroes;
+    }
 
     public Hero GetHeroById(int id)
     {
