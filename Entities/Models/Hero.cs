@@ -3,10 +3,10 @@
 public class Hero
 {
     public int HeroId { get; set; }
-    public string? Name { get; set; }
+    public string Name { get; set; }
     
     public List<Superpower> Superpowers { get; } = new();
-    public int? PowerPoints { get;}
+    public int PowerPoints { get;}
 
     public int TeamId { get; set; }
     public Team? Team { get; set; }

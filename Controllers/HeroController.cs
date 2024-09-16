@@ -28,18 +28,20 @@ public class HeroController : ControllerBase
     public HeroController(ILogger<HeroController> logger, IHeroRepository heroRepository)
     {
         _logger = logger;
-        this._heroRepository = heroRepository;
+        _heroRepository = heroRepository;
         
     }
 
     [HttpGet]
+    [Produces("application/json")]
     public IEnumerable<Hero> Get()
     {
+        _logger.LogDebug("Getting all heroes");
         return Heroes;
     }
     
-    [HttpGet]
-    public ActionResult<Hero> Get(int id)
+    [HttpGet("{id:int}")]
+    public ActionResult<Hero> Get([FromRoute]int id)
     {
         var hero = Heroes.Find(hero => hero.HeroId == id);
         return hero == null ? NotFound() : hero;
@@ -63,8 +65,8 @@ public class HeroController : ControllerBase
         //Delete Hero
     }
     
-    [HttpGet]
-    public void Search(string term)
+    [HttpGet("search")]
+    public void Search([FromQuery]string term)
     {
         //Search Hero
     }

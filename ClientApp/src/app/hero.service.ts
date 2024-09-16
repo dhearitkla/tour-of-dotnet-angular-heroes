@@ -14,7 +14,7 @@ export class HeroService {
    * URL to web api
    * @private
    */
-  private heroesUrl = 'hero';
+  private heroesUrl = 'https://localhost:7165/Hero';
   // private heroesUrl = 'api/hero';
 
   httpOptions = {
@@ -25,7 +25,7 @@ export class HeroService {
 
   /** GET heroes from the server */
   getHeroes(): Observable<Hero[]> {
-    return this.http.get<Hero[]>(this.heroesUrl)
+    return this.http.get<Hero[]>(`${this.heroesUrl}`)
       .pipe(
         tap(_ => this.log('fetched heroes')),
         catchError(this.handleError<Hero[]>('getHeroes', []))
@@ -58,7 +58,7 @@ export class HeroService {
   /** PUT: update the hero on the server */
   updateHero(hero: Hero): Observable<any> {
     return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
-      tap(_ => this.log(`updated hero id=${hero.id}`)),
+      tap(_ => this.log(`updated hero id=${hero.heroId}`)),
       catchError(this.handleError<any>('updateHero'))
     );
   }
@@ -66,7 +66,7 @@ export class HeroService {
   /** POST: add a new hero to the server */
   addHero(hero: Hero): Observable<Hero> {
     return this.http.post<Hero>(this.heroesUrl, hero, this.httpOptions).pipe(
-      tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.id}`)),
+      tap((newHero: Hero) => this.log(`added hero w/ id=${newHero.heroId}`)),
       catchError(this.handleError<Hero>('addHero'))
     );
   }

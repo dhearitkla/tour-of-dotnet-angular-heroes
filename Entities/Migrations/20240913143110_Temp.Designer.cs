@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tour_of_dotnet_angular_heros.Entities.Models;
 
@@ -10,9 +11,10 @@ using tour_of_dotnet_angular_heros.Entities.Models;
 namespace tour_of_dotnet_angular_heros.Migrations
 {
     [DbContext(typeof(HeroContext))]
-    partial class HeroContextModelSnapshot : ModelSnapshot
+    [Migration("20240913143110_Temp")]
+    partial class Temp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "6.0.33");

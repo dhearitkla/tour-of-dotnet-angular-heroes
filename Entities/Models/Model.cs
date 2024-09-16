@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
-using tour_of_dotnet_angular_heros.Entities.Models;
+
+namespace tour_of_dotnet_angular_heros.Entities.Models;
 
 public class HeroContext : DbContext
 {
-    public DbSet<Team>? Teams { get; set; }
-    public DbSet<Hero>? Heroes { get; set; }
-    public DbSet<Superpower>? SuperPowers { get; set; } 
+    public DbSet<Team> Teams { get; set; }
+    public DbSet<Hero> Heroes { get; set; }
+    public DbSet<Superpower> SuperPowers { get; set; } 
 
     public string DbPath { get; }
 

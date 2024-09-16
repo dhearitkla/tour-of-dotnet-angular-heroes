@@ -5,7 +5,7 @@
         <Nullable>enable</Nullable>
         <IsPackable>false</IsPackable>
         <SpaRoot>ClientApp\</SpaRoot>
-        <SpaProxyServerUrl>https://localhost:44488</SpaProxyServerUrl>
+        <SpaProxyServerUrl>http://localhost:4200/</SpaProxyServerUrl>
         <SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
         <RootNamespace>tour_of_dotnet_angular_heros</RootNamespace>
         <ImplicitUsings>enable</ImplicitUsings>
