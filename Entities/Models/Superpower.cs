@@ -1,4 +1,4 @@
-﻿namespace tour_of_dotnet_angular_heros.Entities.Models;
+﻿namespace tour.of.dotnet.angular.heroes.Entities.Models;
 
 public class Superpower
 {
@@ -15,31 +15,15 @@ public class Superpower
         var powerPoints = 0;
         hero.Superpowers.ForEach(power =>
         {
-            switch (power.Grade)
+            powerPoints += power.Grade switch
             {
-                case SuperpowerGrade.GradeD:
-                    powerPoints += 100;
-                    break;
-                    
-                case SuperpowerGrade.GradeC:
-                    powerPoints += 1000;
-                    break;
-                    
-                case SuperpowerGrade.GradeB:
-                    powerPoints += 2000;
-                    break;
-                    
-                case SuperpowerGrade.GradeA:
-                    powerPoints += 3000;
-                    break;
-                    
-                case SuperpowerGrade.Archon:
-                    powerPoints += 10000;
-                    break;
-                
-                default:
-                    throw new Exception($"Unknown super power grade: {nameof(power.Grade)}");
-            }
+                SuperpowerGrade.GradeD => 100,
+                SuperpowerGrade.GradeC => 1000,
+                SuperpowerGrade.GradeB => 2000,
+                SuperpowerGrade.GradeA => 3000,
+                SuperpowerGrade.Archon => 10000,
+                _ => throw new Exception($"Unknown super power grade: {nameof(power.Grade)}")
+            };
         });
         return powerPoints;
     }

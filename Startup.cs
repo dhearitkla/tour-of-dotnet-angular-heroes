@@ -1,8 +1,10 @@
-﻿using tour_of_dotnet_angular_heros.Entities.Models;
-using tour_of_dotnet_angular_heros.Repositories;
-using tour_of_dotnet_angular_heros.Repositories.Interfaces;
+﻿using tour.of.dotnet.angular.heroes.Entities.Models;
+using tour.of.dotnet.angular.heroes.Repositories;
+using tour.of.dotnet.angular.heroes.Repositories.Interfaces;
+using tour.of.dotnet.angular.heroes.Services;
+using tour.of.dotnet.angular.heroes.Services.Interfaces;
 
-namespace tour_of_dotnet_angular_heros;
+namespace tour.of.dotnet.angular.heroes;
 
 public class Startup
 {
@@ -19,11 +21,15 @@ public class Startup
         services.AddDbContext<HeroContext>();
         services.AddControllers();
         services.AddScoped<IHeroRepository, HeroRepository>();
+        services.AddScoped<ITeamRepository, TeamRepository>();
+        services.AddScoped<IStartupService, StartupService>();
+
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
     {
         app.UseHttpsRedirection();
+        
         if (!env.IsDevelopment())
         {
             app.UseExceptionHandler("/Home/Error");
@@ -37,18 +43,18 @@ public class Startup
                 .AllowAnyMethod()
                 .AllowAnyHeader());
         }
-
         
         app.UseStaticFiles();
-
         app.UseRouting();
-        
-       
         
         app.UseEndpoints(endpoints =>
         {
             endpoints.MapControllers();
         });
+
+        using var scope = app.ApplicationServices.CreateScope();
+        var startupService = scope.ServiceProvider.GetRequiredService<IStartupService>;
+        startupService.Invoke().InitLoadOfHeroesAndTeams();
     }
  
 }

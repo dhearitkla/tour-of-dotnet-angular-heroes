@@ -4,7 +4,7 @@
 
 namespace tour.of.dotnet.angular.heroes.Migrations
 {
-    public partial class ReposInit : Migration
+    public partial class FKeys : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

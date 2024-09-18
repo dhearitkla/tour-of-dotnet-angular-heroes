@@ -1,4 +1,4 @@
-﻿namespace tour_of_dotnet_angular_heros.Entities.Models;
+﻿namespace tour.of.dotnet.angular.heroes.Entities.Models;
 
 public class Hero
 {
@@ -16,11 +16,10 @@ public class Hero
         this.Name = name;
     }
 
-    public Hero(string name, List<Superpower> superpowers, int teamId)
+    public Hero(string name, List<Superpower> superpowers)
     {
         this.Name = name;
         this.Superpowers = superpowers;
-        this.TeamId = teamId;
         this.PowerPoints = Superpower.CalculatePowerPoints(this);
         
         // TeamFactory.getTeam(teamId).setHero(this);

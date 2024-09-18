@@ -4,11 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using tour_of_dotnet_angular_heros.Entities.Models;
+using tour.of.dotnet.angular.heroes.Entities.Models;
 
 #nullable disable
 
-namespace tour_of_dotnet_angular_heros.Migrations
+namespace tour.of.dotnet.angular.heroes.Migrations
 {
     [DbContext(typeof(HeroContext))]
     [Migration("20240911153131_AddedPowerPoints")]

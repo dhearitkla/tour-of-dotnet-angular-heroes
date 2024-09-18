@@ -1,14 +1,15 @@
-﻿using tour_of_dotnet_angular_heros.Entities.Models;
+﻿using tour.of.dotnet.angular.heroes.Entities.Models;
 
-namespace tour_of_dotnet_angular_heros.Repositories.Interfaces;
+namespace tour.of.dotnet.angular.heroes.Repositories.Interfaces;
 
 public interface IHeroRepository : IDisposable
 {
     IEnumerable<Hero> GetHeroes();
     IEnumerable<Hero> SearchHeroes(string searchTerm);
-    Hero GetHeroById(int heroId);
+    Hero? GetHeroById(int heroId);
     void InsertHero(Hero hero);
     void DeleteHero(int heroId);
     void UpdateHero(Hero hero);
+    void ClearHeroes();
     void Save();
 }

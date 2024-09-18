@@ -4,56 +4,56 @@ using tour.of.dotnet.angular.heroes.Repositories.Interfaces;
 
 namespace tour.of.dotnet.angular.heroes.Repositories;
 
-public class HeroRepository : IHeroRepository
+public class TeamRepository : ITeamRepository
 {
     private readonly HeroContext _context;
     
-    public HeroRepository(HeroContext context)
+    public TeamRepository(HeroContext context)
     {
         this._context = context;
     }
 
-    public IEnumerable<Hero> GetHeroes()
+    public IEnumerable<Team> GetTeams()
     {
-        return _context.Heroes.ToList();
+        return _context.Teams.ToList();
     }
 
-    public IEnumerable<Hero> SearchHeroes(string searchTerm)
+    public IEnumerable<Team> SearchTeams(string searchTerm)
     {
-        var heroes = (from hero in _context.Heroes
-            where searchTerm.Any(s => hero.Name.Contains(s))
-            select hero).ToList();
+        var heroes = (from team in _context.Teams
+            where searchTerm.Any(s => team.Name.Contains(s))
+            select team).ToList();
 
         return heroes;
     }
 
-    public Hero? GetHeroById(int id)
+    public Team? GetTeamById(int id)
     {
-        return _context.Heroes.Find(id);
+        return _context.Teams.Find(id);
     }
 
-    public void InsertHero(Hero hero)
+    public void InsertTeam(Team hero)
     {
-        _context.Heroes.Add(hero);
+        _context.Teams.Add(hero);
     }
 
-    public void DeleteHero(int heroId)
+    public void DeleteTeam(int heroId)
     {
-        var hero = _context.Heroes.Find(heroId);
-        if (hero != null)
+        var team = _context.Teams.Find(heroId);
+        if (team != null)
         {
-            _context.Heroes.Remove(hero);
+            _context.Teams.Remove(team);
         }
     }
 
-    public void UpdateHero(Hero hero)
+    public void UpdateTeam(Team hero)
     {
         _context.Entry(hero).State = EntityState.Modified;
     }
-
-    public void ClearHeroes()
+    
+    public void ClearTeams()
     {
-        _context.Heroes.RemoveRange(_context.Heroes);
+        _context.Teams.RemoveRange(_context.Teams);
     }
 
     public void Save()

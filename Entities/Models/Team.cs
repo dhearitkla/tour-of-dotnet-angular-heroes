@@ -1,4 +1,4 @@
-﻿namespace tour_of_dotnet_angular_heros.Entities.Models;
+﻿namespace tour.of.dotnet.angular.heroes.Entities.Models;
 
 public class Team
 {

@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore;
 
-namespace tour_of_dotnet_angular_heros;
+namespace tour.of.dotnet.angular.heroes;
 public class Program
 {
     

@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace tour_of_dotnet_angular_heros.Migrations
+namespace tour.of.dotnet.angular.heroes.Migrations
 {
     public partial class AddedPowerPoints : Migration
     {

@@ -1,27 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using tour_of_dotnet_angular_heros.Entities.Models;
-using tour_of_dotnet_angular_heros.Repositories.Interfaces;
+using tour.of.dotnet.angular.heroes.Entities.Models;
+using tour.of.dotnet.angular.heroes.Repositories.Interfaces;
 
-namespace tour_of_dotnet_angular_heros.Controllers;
+namespace tour.of.dotnet.angular.heroes.Controllers;
 
 [ApiController]
 [Route("[controller]")]
 public class HeroController : ControllerBase
 {
-    private static readonly List<Hero> Heroes = new()
-    {
-        new Hero("Dr. Doom", new List<Superpower>(), 1),
-        new Hero("Bombasto", new List<Superpower>(), 1),
-        new Hero("Celeritas", new List<Superpower>(), 1),
-        new Hero("Magneta", new List<Superpower>(), 1),
-        new Hero("RubberMan", new List<Superpower>(), 1),
-        new Hero("Dynama", new List<Superpower>(), 1),
-        new Hero("Dr. IQ", new List<Superpower>(), 1),
-        new Hero("Magma", new List<Superpower>(), 1),
-        new Hero("Tornado", new List<Superpower>(), 1),
-        new Hero("Dr. Nice", new List<Superpower>(), 1),
-    };
-
     private readonly ILogger<HeroController> _logger;
     private readonly IHeroRepository _heroRepository;
 
@@ -36,13 +22,13 @@ public class HeroController : ControllerBase
     public IEnumerable<Hero> Get()
     {
         _logger.LogDebug("Getting all heroes");
-        return Heroes;
+        return _heroRepository.GetHeroes();;
     }
     
     [HttpGet("{id:int}")]
     public ActionResult<Hero> Get([FromRoute]int id)
     {
-        var hero = Heroes.Find(hero => hero.HeroId == id);
+        var hero = _heroRepository.GetHeroById(id);
         return hero == null ? NotFound() : hero;
     }
     
@@ -56,17 +42,20 @@ public class HeroController : ControllerBase
     public void Update(Hero hero)
     {
         this._heroRepository.UpdateHero(hero);
+        this._heroRepository.Save();
     }
     
     [HttpPost]
     public void Add(Hero hero)
     {
         this._heroRepository.InsertHero(hero);
+        this._heroRepository.Save();
     }
     
     [HttpDelete]
     public void Delete(int id)
     {
         this._heroRepository.DeleteHero(id);
+        this._heroRepository.Save();
     }
 }

@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tour-of-dotnet-angular-heros", "tour-of-dotnet-angular-heros.csproj", "{4D5B84DF-2B0E-47E7-9ADC-BC5121834B5B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "tour.of.dotnet.angular.heroes", "tour.of.dotnet.angular.heroes.csproj", "{4D5B84DF-2B0E-47E7-9ADC-BC5121834B5B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
