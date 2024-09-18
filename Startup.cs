@@ -20,6 +20,7 @@ public class Startup
         services.AddCors();
         services.AddDbContext<HeroContext>();
         services.AddControllers();
+        services.AddControllers().AddNewtonsoftJson();
         services.AddScoped<IHeroRepository, HeroRepository>();
         services.AddScoped<ITeamRepository, TeamRepository>();
         services.AddScoped<IStartupService, StartupService>();

@@ -20,16 +20,16 @@ public class StartupService : IStartupService
     
     private static readonly List<Hero> InitHeroes = new()
     {
-        new Hero("Dr. Doom", new List<Superpower>()),
-        new Hero("Bombasto", new List<Superpower>()),
-        new Hero("Celeritas", new List<Superpower>()),
-        new Hero("Magneta", new List<Superpower>()),
-        new Hero("RubberMan", new List<Superpower>()),
-        new Hero("Dynama", new List<Superpower>()),
-        new Hero("Dr. IQ", new List<Superpower>()),
-        new Hero("Magma", new List<Superpower>()),
-        new Hero("Tornado", new List<Superpower>()),
-        new Hero("Dr. Nice", new List<Superpower>()),
+        new Hero { Name = "Dr. Doom" },
+        new Hero { Name = "Bombasto" },
+        new Hero { Name = "Celeritas" },
+        new Hero { Name = "Magneta" },
+        new Hero { Name = "RubberMan" },
+        new Hero { Name = "Dynama"},
+        new Hero { Name = "Dr. IQ" },
+        new Hero { Name = "Magma" },
+        new Hero { Name = "Tornado"},
+        new Hero { Name = "Dr. Nice" },
     };
 
     private static readonly List<Team> InitTeams = new()
@@ -54,6 +54,8 @@ public class StartupService : IStartupService
     {
         this._heroRepository.ClearHeroes();
         this._teamRepository.ClearTeams();
+        this._heroRepository.Save();
+        this._teamRepository.Save();
     }
     
 }

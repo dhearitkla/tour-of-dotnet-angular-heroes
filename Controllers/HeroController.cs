@@ -32,10 +32,10 @@ public class HeroController : ControllerBase
         return hero == null ? NotFound() : hero;
     }
     
-    [HttpGet("search")]
-    public IEnumerable<Hero> Search([FromQuery]string term)
+    [HttpGet("Search")]
+    public IEnumerable<Hero> Search([FromQuery]string name)
     {
-        return this._heroRepository.SearchHeroes(term);
+        return this._heroRepository.SearchHeroes(name);
     }
     
     [HttpPut]
@@ -52,7 +52,7 @@ public class HeroController : ControllerBase
         this._heroRepository.Save();
     }
     
-    [HttpDelete]
+    [HttpDelete("{id:int}")]
     public void Delete(int id)
     {
         this._heroRepository.DeleteHero(id);

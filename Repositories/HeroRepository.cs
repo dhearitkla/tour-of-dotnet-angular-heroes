@@ -21,7 +21,7 @@ public class HeroRepository : IHeroRepository
     public IEnumerable<Hero> SearchHeroes(string searchTerm)
     {
         var heroes = (from hero in _context.Heroes
-            where searchTerm.Any(s => hero.Name.Contains(s))
+            where hero.Name.Contains(searchTerm)
             select hero).ToList();
 
         return heroes;
