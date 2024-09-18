@@ -1,7 +1,12 @@
-﻿namespace tour.of.dotnet.angular.heroes.Entities.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace tour.of.dotnet.angular.heroes.Entities.Models;
 
 public class Team
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int TeamId { get; set; }
     public string? Name { get; set; }
     public string? Purpose { get; set; }

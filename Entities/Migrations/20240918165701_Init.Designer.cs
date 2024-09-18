@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tour.of.dotnet.angular.heroes.Entities.Models;
@@ -11,25 +12,32 @@ using tour.of.dotnet.angular.heroes.Entities.Models;
 namespace tour.of.dotnet.angular.heroes.Migrations
 {
     [DbContext(typeof(HeroContext))]
-    [Migration("20240911192930_IndividualClasses")]
-    partial class IndividualClasses
+    [Migration("20240918165701_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "6.0.33");
+            modelBuilder
+                .HasAnnotation("ProductVersion", "6.0.33")
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            modelBuilder.Entity("tour_of_dotnet_angular_heros.Entities.Models.Hero", b =>
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Hero", b =>
                 {
                     b.Property<int>("HeroId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HeroId"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("TeamId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.HasKey("HeroId");
 
@@ -38,23 +46,25 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                     b.ToTable("Heroes");
                 });
 
-            modelBuilder.Entity("tour_of_dotnet_angular_heros.Entities.Models.Superpower", b =>
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", b =>
                 {
                     b.Property<int>("SuperpowerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SuperpowerId"), 1L, 1);
 
                     b.Property<int>("Classification")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int>("Grade")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<int?>("HeroId")
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SuperpowerId");
 
@@ -63,26 +73,28 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                     b.ToTable("SuperPowers");
                 });
 
-            modelBuilder.Entity("tour_of_dotnet_angular_heros.Entities.Models.Team", b =>
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Team", b =>
                 {
                     b.Property<int>("TeamId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER");
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamId"), 1L, 1);
 
                     b.Property<string>("Name")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Purpose")
-                        .HasColumnType("TEXT");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("TeamId");
 
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("tour_of_dotnet_angular_heros.Entities.Models.Hero", b =>
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Hero", b =>
                 {
-                    b.HasOne("tour_of_dotnet_angular_heros.Entities.Models.Team", "Team")
+                    b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Team", "Team")
                         .WithMany("Heroes")
                         .HasForeignKey("TeamId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -91,19 +103,19 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("tour_of_dotnet_angular_heros.Entities.Models.Superpower", b =>
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", b =>
                 {
-                    b.HasOne("tour_of_dotnet_angular_heros.Entities.Models.Hero", null)
+                    b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Hero", null)
                         .WithMany("Superpowers")
                         .HasForeignKey("HeroId");
                 });
 
-            modelBuilder.Entity("tour_of_dotnet_angular_heros.Entities.Models.Hero", b =>
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Hero", b =>
                 {
                     b.Navigation("Superpowers");
                 });
 
-            modelBuilder.Entity("tour_of_dotnet_angular_heros.Entities.Models.Team", b =>
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Team", b =>
                 {
                     b.Navigation("Heroes");
                 });

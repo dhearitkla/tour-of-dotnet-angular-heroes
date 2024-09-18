@@ -1,7 +1,12 @@
-﻿namespace tour.of.dotnet.angular.heroes.Entities.Models;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace tour.of.dotnet.angular.heroes.Entities.Models;
 
 public class Hero
 {
+    [Key]
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public int HeroId { get; set; }
     public string Name { get; set; } = string.Empty;
     
