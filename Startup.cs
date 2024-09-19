@@ -19,12 +19,11 @@ public class Startup
     {
         services.AddCors();
         services.AddDbContext<HeroContext>();
-        services.AddControllers();
         services.AddControllers().AddNewtonsoftJson();
         services.AddScoped<IHeroRepository, HeroRepository>();
+        services.AddScoped<IHeroService, HeroService>();
         services.AddScoped<ITeamRepository, TeamRepository>();
-        services.AddScoped<IStartupService, StartupService>();
-
+        services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -54,8 +53,8 @@ public class Startup
         });
 
         using var scope = app.ApplicationServices.CreateScope();
-        var startupService = scope.ServiceProvider.GetRequiredService<IStartupService>;
-        startupService.Invoke().InitLoadOfHeroesAndTeams();
+        var databaseInitializer = scope.ServiceProvider.GetRequiredService<IDatabaseInitializer>;
+        databaseInitializer.Invoke().Seed();
     }
  
 }

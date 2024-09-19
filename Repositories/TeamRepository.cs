@@ -10,7 +10,7 @@ public class TeamRepository : ITeamRepository
     
     public TeamRepository(HeroContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public IEnumerable<Team> GetTeams()
@@ -65,14 +65,14 @@ public class TeamRepository : ITeamRepository
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!this._disposed)
+        if (!_disposed)
         {
             if (disposing)
             {
                 _context.Dispose();
             }
         }
-        this._disposed = true;
+        _disposed = true;
     }
 
     public void Dispose()

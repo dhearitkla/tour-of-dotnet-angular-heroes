@@ -10,7 +10,7 @@ public class HeroRepository : IHeroRepository
     
     public HeroRepository(HeroContext context)
     {
-        this._context = context;
+        _context = context;
     }
 
     public IEnumerable<Hero> GetHeroes()
@@ -40,6 +40,7 @@ public class HeroRepository : IHeroRepository
     public void DeleteHero(int heroId)
     {
         var hero = _context.Heroes.Find(heroId);
+        //manage deletion of superpower before the hero is deleted
         if (hero != null)
         {
             _context.Heroes.Remove(hero);
@@ -65,14 +66,14 @@ public class HeroRepository : IHeroRepository
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!this._disposed)
+        if (!_disposed)
         {
             if (disposing)
             {
                 _context.Dispose();
             }
         }
-        this._disposed = true;
+        _disposed = true;
     }
 
     public void Dispose()

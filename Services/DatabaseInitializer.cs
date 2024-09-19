@@ -4,14 +4,14 @@ using tour.of.dotnet.angular.heroes.Services.Interfaces;
 
 namespace tour.of.dotnet.angular.heroes.Services;
 
-public class StartupService : IStartupService
+public class DatabaseInitializer : IDatabaseInitializer
 {
     
-    private readonly ILogger<StartupService> _logger;
+    private readonly ILogger<DatabaseInitializer> _logger;
     private readonly IHeroRepository _heroRepository;
     private readonly ITeamRepository _teamRepository;
 
-    public StartupService(ILogger<StartupService> logger, IHeroRepository heroRepository, ITeamRepository teamRepository)
+    public DatabaseInitializer(ILogger<DatabaseInitializer> logger, IHeroRepository heroRepository, ITeamRepository teamRepository)
     {
         _logger = logger;
         _heroRepository = heroRepository;
@@ -34,28 +34,28 @@ public class StartupService : IStartupService
 
     private static readonly List<Team> InitTeams = new()
     {
-        new Team("Doom Squad", "Wreck havoc on the Earth", InitHeroes.GetRange(0,5)),
-        new Team("Weather Vanes", "Terraform the Earth in case of disaster", InitHeroes.GetRange(5,5)),
+        new Team { Name = "Doom Squad", Purpose = "Wreck havoc on the Earth", Heroes = InitHeroes.GetRange(0,5) },
+        new Team {Name = "Weather Vanes", Purpose = "Terraform the Earth in case of disaster", Heroes = InitHeroes.GetRange(5,5) },
     };
 
 
-    public void InitLoadOfHeroesAndTeams()
+    public void Seed()
     {
         ClearDatabase();
         foreach (var team in InitTeams)
         {
-            this._teamRepository.InsertTeam(team);
+            _teamRepository.InsertTeam(team);
         }
-        this._teamRepository.Save();
+        _teamRepository.Save();
         
     }
 
     private void ClearDatabase()
     {
-        this._heroRepository.ClearHeroes();
-        this._teamRepository.ClearTeams();
-        this._heroRepository.Save();
-        this._teamRepository.Save();
+        _heroRepository.ClearHeroes();
+        _teamRepository.ClearTeams();
+        _heroRepository.Save();
+        _teamRepository.Save();
     }
     
 }

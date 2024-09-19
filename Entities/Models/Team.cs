@@ -12,18 +12,5 @@ public class Team
     public string? Purpose { get; set; }
     public int? PowerPoints { get; }
 
-    public List<Hero> Heroes { get; } = new();
-    
-    public Team(string name, string purpose)
-    {
-        this.Name = name;
-        this.Purpose = purpose;
-    }
-    
-    public Team(string name, string purpose, List<Hero> heroes)
-    {
-        this.Name = name;
-        this.Purpose = purpose;
-        this.Heroes = heroes;
-    }
+    public List<Hero> Heroes { get; set; } = new();
 }
