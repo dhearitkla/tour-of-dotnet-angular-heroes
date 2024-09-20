@@ -7,7 +7,14 @@ public class HeroContext : DbContext
     public DbSet<Team> Teams { get; set; }
     public DbSet<Hero> Heroes { get; set; }
     public DbSet<Superpower> SuperPowers { get; set; }
-
+    public IConfiguration Configuration { get; }
+    
+    private string ConnectionString { get; }
+    public HeroContext(IConfiguration configuration)
+    {
+        Configuration = configuration;
+        ConnectionString = configuration.GetSection("ConnectionStrings").GetSection("TourOfHeroes").Value;
+    }
     protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlServer("Server=127.0.0.1;Integrated Security=false;Initial Catalog='tour-heroes-dev-db';User Id='sa';Password='36x87#aj@84=4}j8';application name=TourOfHeroes");
+        => options.UseSqlServer(ConnectionString);
 }
