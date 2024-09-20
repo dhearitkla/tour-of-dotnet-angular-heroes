@@ -24,8 +24,8 @@ public class HeroController : ControllerBase
         return _heroService.GetAllHeroes();
     }
     
-    [HttpGet("{id:int}")]
-    public ActionResult<Hero> Get([FromRoute]int id)
+    [HttpGet("{id:Guid}")]
+    public ActionResult<Hero> Get([FromRoute]Guid id)
     {
         var hero = _heroService.GetHeroById(id);
         return hero == null ? NotFound() : hero;
@@ -49,8 +49,8 @@ public class HeroController : ControllerBase
         _heroService.AddHero(hero);
     }
     
-    [HttpDelete("{id:int}")]
-    public void Delete(int id)
+    [HttpDelete("{id:Guid}")]
+    public void Delete(Guid id)
     {
         _heroService.DeleteHeroById(id);
     }

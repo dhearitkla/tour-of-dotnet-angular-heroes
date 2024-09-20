@@ -2,7 +2,7 @@
 
 public class Superpower
 {
-    public int SuperpowerId { get; set; }
+    public Guid SuperpowerId { get; set; }
     public string? Name { get; set; }
     public SuperpowerGrade Grade { get; set; }
     public SuperpowerClassification Classification { get; set; }

@@ -7,7 +7,7 @@ public class Team
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int TeamId { get; set; }
+    public Guid TeamId { get; set; }
     public string? Name { get; set; }
     public string? Purpose { get; set; }
     public int? PowerPoints { get; }

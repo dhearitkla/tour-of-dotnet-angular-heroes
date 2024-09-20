@@ -7,13 +7,13 @@ public class Hero
 {
     [Key]
     [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int HeroId { get; set; }
+    public Guid HeroId { get; set; }
     public string Name { get; set; } = string.Empty;
     
     public List<Superpower> Superpowers { get; } = new();
     public int PowerPoints { get; } = 0;
 
-    public int TeamId { get; set; }
+    public Guid TeamId { get; set; }
     public Team? Team { get; set; }
 
     // public Hero(string name, List<Superpower> superpowers)

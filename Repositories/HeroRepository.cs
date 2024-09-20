@@ -27,7 +27,7 @@ public class HeroRepository : IHeroRepository
         return heroes;
     }
 
-    public Hero? GetHeroById(int id)
+    public Hero? GetHeroById(Guid id)
     {
         return _context.Heroes.Find(id);
     }
@@ -37,7 +37,7 @@ public class HeroRepository : IHeroRepository
         _context.Heroes.Add(hero);
     }
 
-    public void DeleteHero(int heroId)
+    public void DeleteHero(Guid heroId)
     {
         var hero = _context.Heroes.Find(heroId);
         //manage deletion of superpower before the hero is deleted

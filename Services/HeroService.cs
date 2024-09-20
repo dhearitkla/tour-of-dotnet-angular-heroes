@@ -21,7 +21,7 @@ public class HeroService : IHeroService
         return _heroRepository.GetHeroes();
     }
 
-    public Hero? GetHeroById(int id)
+    public Hero? GetHeroById(Guid id)
     {
         _logger.LogDebug($"Getting hero by id: {id}");
         return _heroRepository.GetHeroById(id);
@@ -47,7 +47,7 @@ public class HeroService : IHeroService
         _heroRepository.Save();
     }
 
-    public void DeleteHeroById(int id)
+    public void DeleteHeroById(Guid id)
     {
         _logger.LogDebug($"Deleting hero by id: {id}");
         _heroRepository.DeleteHero(id);

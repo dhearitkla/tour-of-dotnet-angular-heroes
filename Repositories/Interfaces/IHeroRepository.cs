@@ -6,9 +6,9 @@ public interface IHeroRepository : IDisposable
 {
     IEnumerable<Hero> GetHeroes();
     IEnumerable<Hero> SearchHeroes(string searchTerm);
-    Hero? GetHeroById(int heroId);
+    Hero? GetHeroById(Guid heroId);
     void InsertHero(Hero hero);
-    void DeleteHero(int heroId);
+    void DeleteHero(Guid heroId);
     void UpdateHero(Hero hero);
     void ClearHeroes();
     void Save();

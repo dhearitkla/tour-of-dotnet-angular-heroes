@@ -24,18 +24,16 @@ namespace tour.of.dotnet.angular.heroes.Migrations
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Hero", b =>
                 {
-                    b.Property<int>("HeroId")
+                    b.Property<Guid>("HeroId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HeroId"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
+                    b.Property<Guid>("TeamId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.HasKey("HeroId");
 
@@ -46,11 +44,9 @@ namespace tour.of.dotnet.angular.heroes.Migrations
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", b =>
                 {
-                    b.Property<int>("SuperpowerId")
+                    b.Property<Guid>("SuperpowerId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SuperpowerId"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Classification")
                         .HasColumnType("int");
@@ -58,8 +54,8 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<int?>("HeroId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("HeroId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
@@ -73,11 +69,9 @@ namespace tour.of.dotnet.angular.heroes.Migrations
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Team", b =>
                 {
-                    b.Property<int>("TeamId")
+                    b.Property<Guid>("TeamId")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TeamId"), 1L, 1);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
