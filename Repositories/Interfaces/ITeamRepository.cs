@@ -6,10 +6,10 @@ public interface ITeamRepository : IDisposable
 {
     IEnumerable<Team> GetTeams();
     IEnumerable<Team> SearchTeams(string searchTerm);
-    Team? GetTeamById(int heroId);
-    void InsertTeam(Team hero);
-    void DeleteTeam(int heroId);
-    void UpdateTeam(Team hero);
+    Team? GetTeamById(Guid teamId);
+    void InsertTeam(Team team);
+    void DeleteTeam(Guid teamId);
+    void UpdateTeam(Team team);
     public void ClearTeams();
     void Save();
 }

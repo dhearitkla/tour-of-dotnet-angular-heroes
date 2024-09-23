@@ -10,7 +10,7 @@ public class Hero
     public Guid HeroId { get; set; }
     public string Name { get; set; } = string.Empty;
     
-    public List<Superpower> Superpowers { get; } = new();
+    public List<Superpower> Superpowers { get; set; } = new();
     public int PowerPoints { get; } = 0;
 
     public Guid TeamId { get; set; }

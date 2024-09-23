@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using tour.of.dotnet.angular.heroes.Entities.Models;
 
@@ -11,9 +12,10 @@ using tour.of.dotnet.angular.heroes.Entities.Models;
 namespace tour.of.dotnet.angular.heroes.Migrations
 {
     [DbContext(typeof(HeroContext))]
-    partial class HeroContextModelSnapshot : ModelSnapshot
+    [Migration("20240920180819_Supportive")]
+    partial class Supportive
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -64,7 +66,7 @@ namespace tour.of.dotnet.angular.heroes.Migrations
 
                     b.HasIndex("HeroId");
 
-                    b.ToTable("Superpowers");
+                    b.ToTable("SuperPowers");
                 });
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Team", b =>

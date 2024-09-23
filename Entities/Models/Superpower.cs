@@ -42,6 +42,6 @@ public enum SuperpowerGrade
  */
 public enum SuperpowerClassification
 {
-    Offensive, Defensive, Support
+    Offensive, Defensive, Supportive
 }
 

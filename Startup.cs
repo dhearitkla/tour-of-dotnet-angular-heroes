@@ -23,6 +23,7 @@ public class Startup
         services.AddScoped<IHeroRepository, HeroRepository>();
         services.AddScoped<IHeroService, HeroService>();
         services.AddScoped<ITeamRepository, TeamRepository>();
+        services.AddScoped<ISuperpowersRepository, SuperpowerRepository>();
         services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
     }
 

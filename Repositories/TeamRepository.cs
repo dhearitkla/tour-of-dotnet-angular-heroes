@@ -27,28 +27,28 @@ public class TeamRepository : ITeamRepository
         return heroes;
     }
 
-    public Team? GetTeamById(int id)
+    public Team? GetTeamById(Guid teamId)
     {
-        return _context.Teams.Find(id);
+        return _context.Teams.Find(teamId);
     }
 
-    public void InsertTeam(Team hero)
+    public void InsertTeam(Team team)
     {
-        _context.Teams.Add(hero);
+        _context.Teams.Add(team);
     }
 
-    public void DeleteTeam(int heroId)
+    public void DeleteTeam(Guid teamId)
     {
-        var team = _context.Teams.Find(heroId);
+        var team = _context.Teams.Find(teamId);
         if (team != null)
         {
             _context.Teams.Remove(team);
         }
     }
 
-    public void UpdateTeam(Team hero)
+    public void UpdateTeam(Team team)
     {
-        _context.Entry(hero).State = EntityState.Modified;
+        _context.Entry(team).State = EntityState.Modified;
     }
     
     public void ClearTeams()

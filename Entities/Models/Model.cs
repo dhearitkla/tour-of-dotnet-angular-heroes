@@ -6,7 +6,7 @@ public class HeroContext : DbContext
 {
     public DbSet<Team> Teams { get; set; }
     public DbSet<Hero> Heroes { get; set; }
-    public DbSet<Superpower> SuperPowers { get; set; }
+    public DbSet<Superpower> Superpowers { get; set; }
     
     private string ConnectionString { get; }
     public HeroContext(IConfiguration configuration)
