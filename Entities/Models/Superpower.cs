@@ -6,6 +6,7 @@ public class Superpower
     public string? Name { get; set; }
     public SuperpowerGrade Grade { get; set; }
     public SuperpowerClassification Classification { get; set; }
+    public List<Hero>? Heroes { get;} = new();
     
     /**
      * Calculates the power points based on hero's superpowers.

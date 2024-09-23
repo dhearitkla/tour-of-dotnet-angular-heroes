@@ -15,21 +15,44 @@ public class HeroRepository : IHeroRepository
 
     public IEnumerable<Hero> GetHeroes()
     {
-        return _context.Heroes.ToList();
+        return _context.Heroes.Select(hero => new Hero()
+        {
+            HeroId = hero.HeroId,
+            Name = hero.Name,
+            Superpowers = hero.Superpowers, // includes Superpowers, but not Superpowers.Heroes 
+            TeamId = hero.TeamId,
+            Team = hero.Team,
+        }).ToList();
     }
 
     public IEnumerable<Hero> SearchHeroes(string searchTerm)
     {
         var heroes = (from hero in _context.Heroes
             where hero.Name.Contains(searchTerm)
-            select hero).ToList();
+            select new Hero()
+            {
+                HeroId = hero.HeroId,
+                Name = hero.Name,
+                Superpowers = hero.Superpowers, // includes Superpowers, but not Superpowers.Heroes 
+                TeamId = hero.TeamId,
+                Team = hero.Team,
+            }).ToList();
 
         return heroes;
     }
 
     public Hero? GetHeroById(Guid id)
     {
-        return _context.Heroes.Find(id);
+       var hero =  _context.Heroes.Select(hero => new Hero()
+        {
+            HeroId = hero.HeroId,
+            Name = hero.Name,
+            Superpowers = hero.Superpowers, // includes Superpowers, but not Superpowers.Heroes 
+            TeamId = hero.TeamId,
+            Team = hero.Team,
+        }).Where( r => r.HeroId == id);
+       
+       return hero.FirstOrDefault();
     }
 
     public void InsertHero(Hero hero)
