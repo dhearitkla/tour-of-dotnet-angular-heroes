@@ -1,13 +1,55 @@
 <div *ngIf="hero">
 
-  <h2>{{hero.name | uppercase}} Details</h2>
-  <div><span>id: </span>{{hero.heroId}}</div>
+  <h2>{{hero.name}} Details</h2>
+  <div>
+    <label for="hero-id">Hero id: </label>
+    <span id="hero-id">{{hero.heroId}}</span>
+  </div>
   <div>
     <label for="hero-name">Hero name: </label>
     <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
+  </div>
+  <div>
+    <label for="hero-team">Hero team: </label>
+    <select id="hero-team" [(ngModel)]="hero.teamId">
+      <option *ngFor="let team of teams" [value]="team.teamId">{{team.name}}</option>
+    </select>
+  </div>
+  <div>
+    <label for="hero-superpowers">Hero superpowers: </label>
+    <ul id="hero-superpowers" class="superpowers">
+      <li *ngFor="let superpower of hero.superpowers">
+        <button type="button" class="superpowers" title="delete superpower" (click)="deleteSuperpower(superpower)">x</button>
+        <a routerLink="/superpower/detail/{{superpower.superpowerId}}" [ngClass]="superpower.new ? 'new': ''">
+          <span class="badge">{{superpower.superpowerId| slice:0:2}}</span> {{superpower.name}}
+        </a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <label for="hero-superpowers-add">Hero superpowers add: </label>
+    <select id="hero-superpowers-add" [(ngModel)]="selectedSuperpowerAdd" (change)="onSuperpowerChange()">
+      <option *ngFor="let superpower of superpowers" [ngValue]="superpower">{{superpower.name}}</option>
+    </select>
   </div>
 
   <button type="button" (click)="save()">Save</button>
   <button type="button" (click)="goBack()">Go Back</button>
 
+  <div>
+    <h3>Add Superpower</h3>
+    <div>
+      <label for="new-superpower">Superpower name: </label>
+      <input id="new-superpower" #superpowerName />
+    </div>
+    <div>
+      <label for="new-superpower-image">Superpower picture: </label>
+      <input type="file"
+             id="new-superpower-image"
+             (change)="handleFileInput($event)">
+    </div>
+    <button type="button" class="add-button">
+      Add superpower
+    </button>
+  </div>
 </div>

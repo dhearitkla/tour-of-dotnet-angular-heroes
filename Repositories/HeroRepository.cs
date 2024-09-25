@@ -7,10 +7,12 @@ namespace tour.of.dotnet.angular.heroes.Repositories;
 public class HeroRepository : IHeroRepository
 {
     private readonly HeroContext _context;
+    private readonly ILogger<HeroRepository> _logger;
     
-    public HeroRepository(HeroContext context)
+    public HeroRepository(HeroContext context, ILogger<HeroRepository> logger)
     {
         _context = context;
+        _logger = logger;
     }
 
     public IEnumerable<Hero> GetHeroes()
@@ -72,7 +74,27 @@ public class HeroRepository : IHeroRepository
 
     public void UpdateHero(Hero hero)
     {
-        _context.Entry(hero).State = EntityState.Modified;
+        // var anotherInstanceOfHero = _context.Heroes.Include(x => x.Superpowers).FirstOrDefault(x => x.HeroId == hero.HeroId);
+        // anotherInstanceOfHero.CopyHero(hero);
+        // _logger.LogInformation($"Superpower to be cleared: ({hero.HeroId}, {hero.Superpowers.FirstOrDefault().SuperpowerId})");
+        
+        
+        
+        // hero.Superpowers = hero.Superpowers.Except(anotherInstanceOfHero.Superpowers, new SuperpowerIdComparer()).ToList();
+        
+        // _context.Entry(hero).State = EntityState.Modified;
+        _context.Heroes.Update(hero);
+        _context.SaveChanges();
+        
+        // foreach (var superpower in superpowersOfHero)
+        // {
+        //     _logger.LogInformation($"Superpower: {superpower.Name}");
+        //     hero.Superpowers.Add(superpower);
+        // }
+        // _context.Update(hero);
+        // _context.SaveChanges();
+        // _context.Entry(hero).State = EntityState.Modified;
+        // _context.Heroes.Update(hero);
     }
 
     public void ClearHeroes()

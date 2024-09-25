@@ -4,7 +4,7 @@ using tour.of.dotnet.angular.heroes.Repositories.Interfaces;
 
 namespace tour.of.dotnet.angular.heroes.Repositories;
 
-public class SuperpowerRepository : ISuperpowersRepository
+public class SuperpowerRepository : ISuperpowerRepository
 {
     private readonly HeroContext _context;
 

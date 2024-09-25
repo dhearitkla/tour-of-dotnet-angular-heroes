@@ -1,4 +1,5 @@
-﻿using tour.of.dotnet.angular.heroes.Entities.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using tour.of.dotnet.angular.heroes.Entities.Models;
 using tour.of.dotnet.angular.heroes.Repositories.Interfaces;
 using tour.of.dotnet.angular.heroes.Services.Interfaces;
 
@@ -10,15 +11,15 @@ public class DatabaseInitializer : IDatabaseInitializer
     private readonly ILogger<DatabaseInitializer> _logger;
     private readonly IHeroRepository _heroRepository;
     private readonly ITeamRepository _teamRepository;
-    private readonly ISuperpowersRepository _superpowersRepository;
+    private readonly ISuperpowerRepository _superpowerRepository;
     private static readonly Random Random = new Random();
 
-    public DatabaseInitializer(ILogger<DatabaseInitializer> logger, IHeroRepository heroRepository, ITeamRepository teamRepository, ISuperpowersRepository superpowersRepository)
+    public DatabaseInitializer(ILogger<DatabaseInitializer> logger, IHeroRepository heroRepository, ITeamRepository teamRepository, ISuperpowerRepository superpowerRepository)
     {
         _logger = logger;
         _heroRepository = heroRepository;
         _teamRepository = teamRepository;
-        _superpowersRepository = superpowersRepository;
+        _superpowerRepository = superpowerRepository;
     }
     
     private static readonly List<Superpower> InitSuperpowers = new()
@@ -91,12 +92,11 @@ public class DatabaseInitializer : IDatabaseInitializer
 
     private void ClearDatabase()
     {
-        _superpowersRepository.ClearSuperpowers();
+        _superpowerRepository.ClearSuperpowers();
         _heroRepository.ClearHeroes();
         _teamRepository.ClearTeams();
         _heroRepository.Save();
         _teamRepository.Save();
-        _superpowersRepository.Save();
+        _superpowerRepository.Save();
     }
-    
 }

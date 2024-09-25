@@ -8,12 +8,10 @@ namespace tour.of.dotnet.angular.heroes.Controllers;
 [Route("[controller]")]
 public class HeroController : ControllerBase
 {
-    private readonly ILogger<HeroController> _logger;
     private readonly IHeroService _heroService;
 
     public HeroController(ILogger<HeroController> logger, IHeroService heroService)
     {
-        _logger = logger;
         _heroService = heroService;
         
     }

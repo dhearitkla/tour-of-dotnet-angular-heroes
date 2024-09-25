@@ -8,6 +8,7 @@ public class Superpower
     public SuperpowerClassification Classification { get; set; }
     public List<Hero>? Heroes { get;} = new();
     
+    
     /**
      * Calculates the power points based on hero's superpowers.
      */
@@ -44,5 +45,27 @@ public enum SuperpowerGrade
 public enum SuperpowerClassification
 {
     Offensive, Defensive, Supportive
+}
+
+public class SuperpowerIdComparer : IEqualityComparer<Superpower>
+{
+    public int GetHashCode(Superpower? superpower)
+    {
+        return superpower == null ? 0 : superpower.SuperpowerId.GetHashCode();
+    }
+
+    public bool Equals(Superpower? x1, Superpower? x2)
+    {
+        if (object.ReferenceEquals(x1, x2))
+        {
+            return true;
+        }
+        if (object.ReferenceEquals(x1, null) ||
+            object.ReferenceEquals(x2, null))
+        {
+            return false;
+        }
+        return x1.SuperpowerId == x2.SuperpowerId;
+    }
 }
 

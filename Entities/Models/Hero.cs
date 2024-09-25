@@ -11,10 +11,21 @@ public class Hero
     public string Name { get; set; } = string.Empty;
     
     public List<Superpower> Superpowers { get; set; } = new();
-    public int PowerPoints { get; } = 0;
+    public int PowerPoints { get; set;  } = 0;
 
     public Guid TeamId { get; set; }
     public Team? Team { get; set; }
+
+    public void CopyHero(Hero hero)
+    {
+        this.HeroId = hero.HeroId;
+        this.Name = hero.Name;
+        this.Superpowers = hero.Superpowers;
+        this.PowerPoints = hero.PowerPoints;
+        this.TeamId = hero.TeamId;
+        this.Team = hero.Team;
+    }
+
 
     // public Hero(string name, List<Superpower> superpowers)
     // {

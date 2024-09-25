@@ -2,7 +2,7 @@
 
 namespace tour.of.dotnet.angular.heroes.Repositories.Interfaces;
 
-public interface ISuperpowersRepository : IDisposable
+public interface ISuperpowerRepository : IDisposable
 {
     IEnumerable<Superpower> GetSuperpowers();
     IEnumerable<Superpower> SearchSuperpowers(string searchTerm);

@@ -20,10 +20,12 @@ public class Startup
         services.AddCors();
         services.AddDbContext<HeroContext>();
         services.AddControllers().AddNewtonsoftJson();
-        services.AddScoped<IHeroRepository, HeroRepository>();
         services.AddScoped<IHeroService, HeroService>();
+        services.AddScoped<ITeamService, TeamService>();
+        services.AddScoped<ISuperpowerService, SuperpowerService>();
+        services.AddScoped<IHeroRepository, HeroRepository>();
         services.AddScoped<ITeamRepository, TeamRepository>();
-        services.AddScoped<ISuperpowersRepository, SuperpowerRepository>();
+        services.AddScoped<ISuperpowerRepository, SuperpowerRepository>();
         services.AddScoped<IDatabaseInitializer, DatabaseInitializer>();
     }
 
