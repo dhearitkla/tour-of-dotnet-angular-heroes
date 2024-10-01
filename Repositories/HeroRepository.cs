@@ -65,36 +65,50 @@ public class HeroRepository : IHeroRepository
     public void DeleteHero(Guid heroId)
     {
         var hero = _context.Heroes.Find(heroId);
-        //manage deletion of superpower before the hero is deleted
         if (hero != null)
         {
             _context.Heroes.Remove(hero);
         }
     }
 
-    public void UpdateHero(Hero hero)
+    public void UpdateHero(Hero updatedHero)
     {
-        // var anotherInstanceOfHero = _context.Heroes.Include(x => x.Superpowers).FirstOrDefault(x => x.HeroId == hero.HeroId);
-        // anotherInstanceOfHero.CopyHero(hero);
-        // _logger.LogInformation($"Superpower to be cleared: ({hero.HeroId}, {hero.Superpowers.FirstOrDefault().SuperpowerId})");
-        
-        
-        
-        // hero.Superpowers = hero.Superpowers.Except(anotherInstanceOfHero.Superpowers, new SuperpowerIdComparer()).ToList();
-        
-        // _context.Entry(hero).State = EntityState.Modified;
-        _context.Heroes.Update(hero);
+        var existingHero = _context.Heroes.AsNoTracking().Include(x => x.Superpowers).FirstOrDefault(x => x.HeroId == updatedHero.HeroId);
+        UpdateHeroSuperpowers(existingHero, updatedHero);
+
+        updatedHero.Team = null; // Use team ID to update (not a clean workaround, could find way to update both obejects (team and teamId) on frotnend)
+        _context.Heroes.Update(updatedHero);
         _context.SaveChanges();
+    }
+    
+    private void UpdateHeroSuperpowers(Hero existingHero, Hero updatedHero)
+    {
+        _logger.LogInformation($"Updating Superpowers for {existingHero.Name}, {existingHero.HeroId}");
         
-        // foreach (var superpower in superpowersOfHero)
-        // {
-        //     _logger.LogInformation($"Superpower: {superpower.Name}");
-        //     hero.Superpowers.Add(superpower);
-        // }
-        // _context.Update(hero);
-        // _context.SaveChanges();
-        // _context.Entry(hero).State = EntityState.Modified;
-        // _context.Heroes.Update(hero);
+        var superpowersToAdd = updatedHero.Superpowers.Except(existingHero.Superpowers, new SuperpowerIdComparer()).ToList();
+        var superpowersToDelete = existingHero.Superpowers.Except(updatedHero.Superpowers, new SuperpowerIdComparer()).ToList();
+        updatedHero.Superpowers.Clear(); // If we don't clear the superpowers, the update later on will try and add them again (but that trick cannot be used for updating them without this UpdateHeroSuperpowers method)
+        
+        // Remove and add program types
+        foreach (var superpower in superpowersToAdd)
+        {
+            var newHeroSuperpower = new HeroSuperpower()
+            {
+                SuperpowerId = superpower.SuperpowerId,
+                HeroId = updatedHero.HeroId,
+            };
+            _logger.LogInformation($"Adding HeroSuperpower: ({newHeroSuperpower.SuperpowerId}, {newHeroSuperpower.HeroId})");
+            _context.HeroSuperpowers.Add(newHeroSuperpower);
+        }
+        foreach (var superpower in superpowersToDelete) {
+            var deletedHeroSuperpower = new HeroSuperpower()
+            {
+                SuperpowerId = superpower.SuperpowerId,
+                HeroId = updatedHero.HeroId,
+            };
+            _logger.LogInformation($"Deleting HeroSuperpower: ({deletedHeroSuperpower.SuperpowerId}, {deletedHeroSuperpower.HeroId})");
+            _context.HeroSuperpowers.Remove(deletedHeroSuperpower);
+        }
     }
 
     public void ClearHeroes()

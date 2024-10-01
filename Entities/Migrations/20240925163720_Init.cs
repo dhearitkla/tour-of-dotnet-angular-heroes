@@ -10,6 +10,20 @@ namespace tour.of.dotnet.angular.heroes.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Superpowers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Grade = table.Column<int>(type: "int", nullable: false),
+                    Classification = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Superpowers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Teams",
                 columns: table => new
                 {
@@ -26,13 +40,14 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                 name: "Heroes",
                 columns: table => new
                 {
-                    HeroId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PowerPoints = table.Column<int>(type: "int", nullable: false),
                     TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Heroes", x => x.HeroId);
+                    table.PrimaryKey("PK_Heroes", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Heroes_Teams_TeamId",
                         column: x => x.TeamId,
@@ -42,23 +57,27 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "SuperPowers",
+                name: "HeroSuperpowers",
                 columns: table => new
                 {
-                    SuperpowerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Grade = table.Column<int>(type: "int", nullable: false),
-                    Classification = table.Column<int>(type: "int", nullable: false),
-                    HeroId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    HeroId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SuperpowerId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SuperPowers", x => x.SuperpowerId);
+                    table.PrimaryKey("PK_HeroSuperpowers", x => new { x.HeroId, x.SuperpowerId });
                     table.ForeignKey(
-                        name: "FK_SuperPowers_Heroes_HeroId",
+                        name: "FK_HeroSuperpowers_Heroes_HeroId",
                         column: x => x.HeroId,
                         principalTable: "Heroes",
-                        principalColumn: "HeroId");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HeroSuperpowers_Superpowers_SuperpowerId",
+                        column: x => x.SuperpowerId,
+                        principalTable: "Superpowers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -67,18 +86,21 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                 column: "TeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SuperPowers_HeroId",
-                table: "SuperPowers",
-                column: "HeroId");
+                name: "IX_HeroSuperpowers_SuperpowerId",
+                table: "HeroSuperpowers",
+                column: "SuperpowerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "SuperPowers");
+                name: "HeroSuperpowers");
 
             migrationBuilder.DropTable(
                 name: "Heroes");
+
+            migrationBuilder.DropTable(
+                name: "Superpowers");
 
             migrationBuilder.DropTable(
                 name: "Teams");

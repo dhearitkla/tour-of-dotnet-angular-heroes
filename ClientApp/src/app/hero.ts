@@ -7,4 +7,5 @@ export interface Hero {
   superpowers: Superpower[]
   teamId: string;
   team: Team;
+  heroSuperpowers : null;
 }

@@ -12,8 +12,8 @@ using tour.of.dotnet.angular.heroes.Entities.Models;
 namespace tour.of.dotnet.angular.heroes.Migrations
 {
     [DbContext(typeof(HeroContext))]
-    [Migration("20240925125329_powerpoints")]
-    partial class powerpoints
+    [Migration("20240925180552_HeroSuperpowerNulls")]
+    partial class HeroSuperpowerNulls
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,21 +23,6 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
-
-            modelBuilder.Entity("HeroSuperpower", b =>
-                {
-                    b.Property<Guid>("HeroesHeroId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SuperpowersSuperpowerId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("HeroesHeroId", "SuperpowersSuperpowerId");
-
-                    b.HasIndex("SuperpowersSuperpowerId");
-
-                    b.ToTable("HeroSuperpower");
-                });
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Hero", b =>
                 {
@@ -60,6 +45,21 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Heroes");
+                });
+
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.HeroSuperpower", b =>
+                {
+                    b.Property<Guid>("HeroId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SuperpowerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("HeroId", "SuperpowerId");
+
+                    b.HasIndex("SuperpowerId");
+
+                    b.ToTable("HeroSuperpowers");
                 });
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", b =>
@@ -99,21 +99,6 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                     b.ToTable("Teams");
                 });
 
-            modelBuilder.Entity("HeroSuperpower", b =>
-                {
-                    b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Hero", null)
-                        .WithMany()
-                        .HasForeignKey("HeroesHeroId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", null)
-                        .WithMany()
-                        .HasForeignKey("SuperpowersSuperpowerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Hero", b =>
                 {
                     b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Team", "Team")
@@ -123,6 +108,35 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                         .IsRequired();
 
                     b.Navigation("Team");
+                });
+
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.HeroSuperpower", b =>
+                {
+                    b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Hero", "Hero")
+                        .WithMany("HeroSuperpowers")
+                        .HasForeignKey("HeroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", "Superpower")
+                        .WithMany("HeroSuperpowers")
+                        .HasForeignKey("SuperpowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hero");
+
+                    b.Navigation("Superpower");
+                });
+
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Hero", b =>
+                {
+                    b.Navigation("HeroSuperpowers");
+                });
+
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", b =>
+                {
+                    b.Navigation("HeroSuperpowers");
                 });
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Team", b =>

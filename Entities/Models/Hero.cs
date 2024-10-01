@@ -15,12 +15,14 @@ public class Hero
 
     public Guid TeamId { get; set; }
     public Team? Team { get; set; }
+    
+    // public ICollection<HeroSuperpower> HeroSuperpowers { get; set; }
+
 
     public void CopyHero(Hero hero)
     {
         this.HeroId = hero.HeroId;
         this.Name = hero.Name;
-        this.Superpowers = hero.Superpowers;
         this.PowerPoints = hero.PowerPoints;
         this.TeamId = hero.TeamId;
         this.Team = hero.Team;

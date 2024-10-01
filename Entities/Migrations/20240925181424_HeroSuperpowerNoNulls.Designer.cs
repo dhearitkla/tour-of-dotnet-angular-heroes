@@ -12,8 +12,8 @@ using tour.of.dotnet.angular.heroes.Entities.Models;
 namespace tour.of.dotnet.angular.heroes.Migrations
 {
     [DbContext(typeof(HeroContext))]
-    [Migration("20240920123635_Init")]
-    partial class Init
+    [Migration("20240925181424_HeroSuperpowerNoNulls")]
+    partial class HeroSuperpowerNoNulls
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,6 +34,9 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("PowerPoints")
+                        .HasColumnType("int");
+
                     b.Property<Guid>("TeamId")
                         .HasColumnType("uniqueidentifier");
 
@@ -42,6 +45,21 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                     b.HasIndex("TeamId");
 
                     b.ToTable("Heroes");
+                });
+
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.HeroSuperpower", b =>
+                {
+                    b.Property<Guid>("HeroId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SuperpowerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("HeroId", "SuperpowerId");
+
+                    b.HasIndex("SuperpowerId");
+
+                    b.ToTable("HeroSuperpowers");
                 });
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", b =>
@@ -56,17 +74,12 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                     b.Property<int>("Grade")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("HeroId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SuperpowerId");
 
-                    b.HasIndex("HeroId");
-
-                    b.ToTable("SuperPowers");
+                    b.ToTable("Superpowers");
                 });
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Team", b =>
@@ -97,16 +110,33 @@ namespace tour.of.dotnet.angular.heroes.Migrations
                     b.Navigation("Team");
                 });
 
-            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", b =>
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.HeroSuperpower", b =>
                 {
-                    b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Hero", null)
-                        .WithMany("Superpowers")
-                        .HasForeignKey("HeroId");
+                    b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Hero", "Hero")
+                        .WithMany("HeroSuperpowers")
+                        .HasForeignKey("HeroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", "Superpower")
+                        .WithMany("HeroSuperpowers")
+                        .HasForeignKey("SuperpowerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Hero");
+
+                    b.Navigation("Superpower");
                 });
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Hero", b =>
                 {
-                    b.Navigation("Superpowers");
+                    b.Navigation("HeroSuperpowers");
+                });
+
+            modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Superpower", b =>
+                {
+                    b.Navigation("HeroSuperpowers");
                 });
 
             modelBuilder.Entity("tour.of.dotnet.angular.heroes.Entities.Models.Team", b =>

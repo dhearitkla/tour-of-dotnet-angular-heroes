@@ -9,7 +9,7 @@ public interface IHeroRepository : IDisposable
     Hero? GetHeroById(Guid heroId);
     void InsertHero(Hero hero);
     void DeleteHero(Guid heroId);
-    void UpdateHero(Hero hero);
+    void UpdateHero(Hero updatedHero);
     void ClearHeroes();
     void Save();
 }

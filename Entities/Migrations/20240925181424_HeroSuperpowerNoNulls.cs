@@ -4,7 +4,7 @@
 
 namespace tour.of.dotnet.angular.heroes.Migrations
 {
-    public partial class Supportive : Migration
+    public partial class HeroSuperpowerNoNulls : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

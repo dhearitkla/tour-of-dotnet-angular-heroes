@@ -8,7 +8,9 @@ public class Superpower
     public SuperpowerClassification Classification { get; set; }
     public List<Hero>? Heroes { get;} = new();
     
-    
+    // public ICollection<HeroSuperpower> HeroSuperpowers { get; set; }
+
+
     /**
      * Calculates the power points based on hero's superpowers.
      */

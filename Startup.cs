@@ -1,4 +1,5 @@
-﻿using tour.of.dotnet.angular.heroes.Entities.Models;
+﻿using Newtonsoft.Json;
+using tour.of.dotnet.angular.heroes.Entities.Models;
 using tour.of.dotnet.angular.heroes.Repositories;
 using tour.of.dotnet.angular.heroes.Repositories.Interfaces;
 using tour.of.dotnet.angular.heroes.Services;
@@ -19,7 +20,10 @@ public class Startup
     {
         services.AddCors();
         services.AddDbContext<HeroContext>();
-        services.AddControllers().AddNewtonsoftJson();
+        services.AddControllers().AddNewtonsoftJson(options =>
+        {
+            options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        });
         services.AddScoped<IHeroService, HeroService>();
         services.AddScoped<ITeamService, TeamService>();
         services.AddScoped<ISuperpowerService, SuperpowerService>();
